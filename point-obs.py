@@ -1,4 +1,3 @@
-import pandas as pd
 import asyncio
 import websockets
 
@@ -10,7 +9,7 @@ async def point(websocket):
             data_lines = f.read()
 
         await websocket.send(str(data_lines))
-        await asyncio.sleep(1)
+        await asyncio.sleep(0.1)
 
 
 async def main():
