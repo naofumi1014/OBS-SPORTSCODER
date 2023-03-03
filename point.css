@@ -1,0 +1,58 @@
+body {
+    width: 1920px;
+    height: 1080px;
+    font-family: "FTT-Sニューロダン B ";
+    font-weight: bold;
+    position: absolute;
+    background-image: url(./background/point.png);
+    background-repeat: no-repeat;
+    background-position: top 30px left 49px;
+}
+
+
+/*position_mainとposition_behindの作成*/
+
+.HOMETEAM {
+    font-size: 30px;
+    color: white;
+    position: absolute;
+    top: 35px;
+    left: 90px;
+    transform: scaleX(1);
+}
+
+.VISITORTEAM {
+    font-size: 30px;
+    color: white;
+    position: absolute;
+    top: 35px;
+    left: 445px;
+    transform: scaleX(1);
+}
+
+
+/*点数関係の可変要素はmarginで操作して中央揃え*/
+
+.HOMETEAM_POINT {
+    font-size: 35px;
+    color: white;
+    text-align: center;
+    margin-top: 30px;
+    margin-left: -1360px;
+}
+
+.VISITORTEAM_POINT {
+    font-size: 35px;
+    color: white;
+    text-align: center;
+    margin-top: -53px;
+    margin-left: -1179px;
+}
+
+.PERIOD {
+    font-size: 28px;
+    color: black;
+    text-align: center;
+    margin-top: -46px;
+    margin-left: -651px;
+}
