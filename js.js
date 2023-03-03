@@ -1,5 +1,6 @@
 window.addEventListener("DOMContentLoaded", () => {
     const websocket = new WebSocket("ws://localhost:2222/");
+    const websocket_timer = new WebSocket("ws://localhost:1234/");
 
     // pythonサーバー側からメッセージを受け取った場合に発火する
 
@@ -94,6 +95,81 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 
+    };
+
+    websocket_timer.onmessage = ({ data }) => {
+
+
+        //要素のみを削除する機能
+        if (JSON.parse(data)[0] == 'False') {
+
+            console.log('めいん削除')
+                //要素の削除 main
+            const remove_element_main = document.querySelector('.position_main');
+            if (remove_element_main !== null) {
+                remove_element_main.parentNode.removeChild(remove_element_main);
+            }
+
+            //behind
+            const remove_element_behind = document.querySelector('.position_behind');
+            if (remove_element_behind !== null) {
+                remove_element_behind.parentNode.removeChild(remove_element_behind);
+            }
+
+        }
+
+        if (JSON.parse(data)[0] == 'main') {
+
+            //既存の要素の削除
+            const remove_element = document.querySelector('div.position_main');
+            if (remove_element !== null) {
+                console.log('reload element')
+                remove_element.remove();
+            }
+
+            //<div class='position'> の作成
+            const messages = document.createElement("div");
+            messages.className = 'position_main';
+            document.body.appendChild(messages);
+
+            //div内の要素 の記入
+            const content = document.createTextNode(JSON.parse(data)[1]);
+            messages.appendChild(content);
+
+            console.log(data);
+            console.log(content);
+        }
+
+        if (JSON.parse(data)[0] == 'behind') {
+            //ビハインドタイマーのみの削除
+            if (JSON.parse(data)[1] == 'False') {
+                const remove_element = document.querySelector('div.position_behind');
+                if (remove_element !== null) {
+                    console.log('remove behind element')
+                    remove_element.remove();
+                }
+            } else {
+
+                //既存の要素の削除
+                const remove_element = document.querySelector('div.position_behind');
+                if (remove_element !== null) {
+                    console.log('reload element')
+                    remove_element.remove();
+                }
+
+                //<div class='position'> の作成
+                const messages = document.createElement("div");
+                messages.className = 'position_behind';
+                document.body.appendChild(messages);
+
+                //div内の要素 の記入
+                const content = document.createTextNode(JSON.parse(data)[1]);
+                messages.appendChild(content);
+
+                console.log(data);
+                console.log(content);
+            }
+        }
     };
 
 

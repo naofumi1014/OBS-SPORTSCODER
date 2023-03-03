@@ -7,7 +7,7 @@ import json
 # tkinter
 root = tk.Tk()
 root.title(u"得点送出GUI")
-root.geometry("800x450")
+root.geometry("800x550")
 
 #file_path
 file_path = 'point_data\\point.json'
@@ -34,7 +34,7 @@ homepoint_entry = tk.Entry(root,
                     width=3,
                     justify="center",
                     )
-hometeam_entry.insert(0,json_data["HOME"]["team"])
+hometeam_entry.insert(0,str(json_data["HOME"]["team"]))
 homepoint_entry.insert(0,str(json_data["VISITOR"]["point"]))
 
 hometeam_entry.place(x=160,y=110)
@@ -83,6 +83,14 @@ period_combo.place(x=400, y=250)
 register_button = tk.Button(root, text="送出",font=("Arial", 25))
 register_button.place(x=330, y=330)
 
+#TIMER
+#HOME
+timer = tk.Label(root, text="TIMER", font=("Arial", 25))
+timer_start_button = tk.Button(root, text="開始",font=("Arial", 20),bg='green')
+timer_start_button.place(x=200, y=445)
+timer.place(x=50,y=450)
+
+
 class function():
     def send_out(self):
         
@@ -107,8 +115,42 @@ class function():
         with open(file_path, mode='w', encoding="utf-8_sig") as f:
             json.dump(json_data, f, ensure_ascii=False)
 
+    def change_main_toggle(self):
+        main_timer_trigger_path = "main_decide.txt"
+        if timer_start_button.config('text')[-1] == '開始':
+            timer_start_button['bg'] = 'red'
+            timer_start_button['text'] = '停止'
+            #timer_start_button['state'] = 'disable' 
+            
+            with open(main_timer_trigger_path, encoding="utf-8") as f:
+                data_lines = f.read()
+                
+                if data_lines == 'False':
+                    # 文字列置換
+                    data_lines = data_lines.replace('False', 'True')
+                    # 同じファイル名で保存
+                    with open(main_timer_trigger_path, mode="w", encoding="utf-8") as f:
+                        f.write(data_lines)     
+                        
+        elif timer_start_button.config('text')[-1] == '停止':
+            timer_start_button['bg'] = 'green'
+            timer_start_button['text'] = '開始'
+            
+            
+            with open(main_timer_trigger_path, encoding="utf-8") as f:
+                data_lines = f.read()
+                
+                if data_lines == 'True':
+                    # 文字列置換
+                    data_lines = data_lines.replace('True', 'False')
+                    # 同じファイル名で保存
+                    with open(main_timer_trigger_path, mode="w", encoding="utf-8") as f:
+                        f.write(data_lines)   
+
 functionclass = function()
 register_button["command"] = functionclass.send_out
-        
+timer_start_button["command"] = functionclass.change_main_toggle
+
+
 # main loop
 root.mainloop()

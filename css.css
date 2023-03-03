@@ -12,6 +12,17 @@ body {
 
 /*position_mainとposition_behindの作成*/
 
+.position_main {
+    font-size: 35px;
+    position: absolute;
+    top: 30px;
+    color: white;
+    left: 665px;
+}
+
+
+/*position_mainとposition_behindの作成*/
+
 .HOMETEAM {
     font-size: 30px;
     color: white;
